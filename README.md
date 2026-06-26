@@ -286,7 +286,7 @@ flowchart LR
     UC1["Aplicar scripts pendientes\na múltiples bases de datos"]
     UC2["Verificar scripts ya\naplicados (idempotencia)"]
     UC3["Registrar resultado\nen bitácora centralizada"]
-    UC4["Consultar historial de\nejuciones y errores"]
+    UC4["Consultar historial de\nejecuciones y errores"]
     UC5["Crear base de datos de\nauditoria automáticamente"]
     UC6["Configurar conexión y\ncarpeta de scripts"]
 
@@ -309,5 +309,6 @@ flowchart LR
 | UC2 | **Verificar idempotencia** | DbSyncManager (interno) | Antes de cada ejecución, consulta `SchemaChangeLog` para obtener la lista de scripts ya aplicados exitosamente. Los scripts existentes se omiten automáticamente. |
 | UC3 | **Registrar resultado** | DbSyncManager (interno) | Tras cada script, inserta un registro en `SchemaChangeLog` con el nombre, hash, duración, éxito/error, versión y batch ID. |
 | UC4 | **Consultar historial** | Operador / DBA | El DBA consulta directamente la tabla `SchemaChangeLog` para auditar qué scripts se aplicaron, cuándo, en cuánto tiempo y si hubo errores. |
+
 | UC5 | **Crear BD de auditoría** | DbSyncManager (interno) | Si la base de datos `PCMDbUpdate` o la tabla `SchemaChangeLog` no existen, la herramienta las crea automáticamente al inicio. |
 | UC6 | **Configurar la herramienta** | Operador | El operador edita `appsettings.json` para indicar la cadena de conexión, la ruta de scripts y los parámetros de logging antes de cada ejecución. |
